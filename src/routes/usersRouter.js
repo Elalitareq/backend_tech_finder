@@ -1,15 +1,18 @@
 import { Router } from "express";
+import { userAddController } from "../controllers/user.js";
+import { requireAuth } from "../middlewares/authentication.js";
+import { loginController, registerController } from "../controllers/authentication.js";
 const userRouter= Router()
 
-userRouter.get("/test",(req,res)=>{
+userRouter.get("/test",requireAuth,(req,res)=>{
     res.send("test get")
 })
 
 
 
-userRouter.post("/",(req,res)=>{
-    res.send(req.body)
-})
+userRouter.post("/",userAddController)
+userRouter.post("/login",loginController)
+userRouter.post("/register",registerController)
 
 
 
