@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const connectToDatabase = async () => {
   // MongoDB connection string
-  const connectionString = 'mongodb+srv://techfinder:techpassword@cluster0.eni99fw.mongodb.net/?retryWrites=true&w=majority';
+  const connectionString = 'mongodb+srv://techfinder:techpassword@cluster0.eni99fw.mongodb.net/techfinderdb?retryWrites=true&w=majority';
 
   // Set up MongoDB connection
   await mongoose.connect(connectionString, {

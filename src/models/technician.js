@@ -1,41 +1,132 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const technicianSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: {type: String,required: true,},
-  email: {type: String,required: true,unique: true,},
-  contactNumber: {type: String,required: true,},
-  address: {street: String,city: String,state: String,postalCode: String,},
+const technicianSchema = new mongoose.Schema({
+  companyName: {
+    type: String,
+    required: "Company name is required",
+  },
+  title: {
+    type: String,
+    required: "Title is required",
+  },
+  address: {
+    type: String,
+    required: "Address is required",
+  },
   location: {
-    type: {type: String,enum: ["Point"],required: true,},
-    coordinates: {type: [Number],required: true,},
+    lat: {
+      type: Number,
+      required: "Latitude is required",
+    },
+    long: {
+      type: Number,
+      required: "Longitude is required",
+    },
   },
-  skills: [String],
-  description: String,
-  ratings: {average: Number,total: Number,},
-  availability: {
-    monday: {    startTime: String,endTime: String,},
-    tuesday: {startTime: String,endTime: String,},
-    wednesday: {startTime: String,endTime: String,},
-    thursday: {startTime: String,endTime: String,},
-    friday: {startTime: String,endTime: String,},
-    saturday: {startTime: String,endTime: String,},
-    sunday: {startTime: String,endTime: String,},
+  workEmail: {
+    type: String,
   },
-  services: [String],
-  socialMedia: [
+  website: {
+    type: String,
+  },
+  social: [
     {
-      name: {type: String,required: true,},
-      url: {type: String,required: true,},
+      platform: { type: String, required: true },
+      url: { type: String, required: true },
     },
   ],
+  schedule: {
+    monday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+    tuesday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+    wednesday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+    thursday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+    friday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+    saturday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+    sunday: {
+      status: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
+      },
+    },
+  },
+  services:{
+    type:String,
+    enum:['laptops','tablets','desktops','screen']
+  }
 });
 
-// Create geospatial index on the location.coordinates field
-technicianSchema.index({ "location.coordinates": "2dsphere" });
+const TechnicianModel = mongoose.model("Technician", technicianSchema);
 
-const Technician = mongoose.model("Technician", technicianSchema);
-
-export default Technician;
+export default TechnicianModel;

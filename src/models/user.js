@@ -1,32 +1,44 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   firstName: {
+    required: "First name is required",
     type: String,
-    required: true
   },
   lastName: {
+    required: "Last name is required",
     type: String,
-    required: true
+  },
+  dob: {
+    type: Date,
+    required: true,
   },
   email: {
+    required: "Email address is required",
     type: String,
-    required: true,
-    unique: true
+    unique: true,
+    validate: {
+      // Regular expression to validate email addresses
+      validator: (value) => {
+        const re =
+          /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+        return re.test(value);
+      },
+      message: "Invalid email address",
+    },
   },
   password: {
     type: String,
-    required: true
+    required: "Password is required",
+  },
+  image: {
+    type: String,
   },
   role: {
+    default: "user",
     type: String,
-    enum: ['user', 'technician', 'admin'],
-    default: 'user'
+    enum: ["admin", "user", "technician"],
   },
-  // Add any additional fields for the user model as needed
 });
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+export const UserModel = mongoose.model("User", UserSchema);
