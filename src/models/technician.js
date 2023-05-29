@@ -121,7 +121,7 @@ const technicianSchema = new mongoose.Schema({
       },
     },
   },
-  services:{
+  service:{
     type:String,
     enum:['laptops','tablets','desktops','screen']
   }

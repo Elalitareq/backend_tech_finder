@@ -3,7 +3,10 @@ import { createTechnician, getAllTechnicians, updateTechnician } from "../contro
 
 const technicianRouter= Router()
 
-technicianRouter.post('/' , createTechnician )
+technicianRouter.post('/' ,(req,res,next)=>{
+    console.log("test")
+    next()
+}, createTechnician )
 technicianRouter.get('/all' , getAllTechnicians )
 technicianRouter.patch('/:id' , updateTechnician )
 
