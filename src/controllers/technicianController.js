@@ -33,13 +33,41 @@ function toRadians(degrees) {
 export const createTechnician = async (req, res) => {
   try {
     const technicianData = req.body;
+    technicianData.aproved = false;
     const technician = await TechnicianModel.create(technicianData);
     res.status(201).json(technician);
   } catch (error) {
     res.status(500).json({ error: "Failed to create technician" });
   }
 };
-
+export const aproveTechnician = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { aproved } = req.body;
+    const technician = await TechnicianModel.findByIdAndUpdate(
+      id,
+      { aproved },
+      { new: true }
+    );
+    if (!technician) {
+      return res
+        .status(404)
+        .send({ succes: false, message: "Technician Not Found" });
+    }
+    res
+      .status(200)
+      .send({ succes: true, message: "Technician Aproved", technician });
+  } catch (e) {
+    res
+      .status(500)
+      .send({
+        success: false,
+        message: "Internal Server Error",
+        error: error,
+        errorMessage: error.message,
+      });
+  }
+};
 // Controller to get all technicians
 // Controller to get all technicians
 export async function getAllTechnicians(req, res) {

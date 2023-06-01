@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createTechnician, getAllTechnicians, getTechnicianById, updateTechnician } from "../controllers/technicianController.js";
+import { aproveTechnician, createTechnician, getAllTechnicians, getTechnicianById, updateTechnician } from "../controllers/technicianController.js";
 
 const technicianRouter= Router()
 
@@ -9,6 +9,7 @@ technicianRouter.post('/' ,(req,res,next)=>{
 }, createTechnician )
 technicianRouter.get('/all' , getAllTechnicians )
 technicianRouter.get('/:id' , getTechnicianById )
+technicianRouter.patch('/aprove/:id' , aproveTechnician )
 technicianRouter.patch('/:id' , updateTechnician )
 
 
