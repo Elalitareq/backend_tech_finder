@@ -13,9 +13,8 @@ const technicianSchema = new mongoose.Schema({
     type: String,
     required: "Address is required",
   },
-  image:{
-    type:String,
-
+  image: {
+    type: String,
   },
   location: {
     lat: {
@@ -27,9 +26,9 @@ const technicianSchema = new mongoose.Schema({
       required: "Longitude is required",
     },
   },
-  aproved:{
-    type:String,
-    default:false
+  aproved: {
+    type: Boolean,
+    default: false,
   },
   workEmail: {
     type: String,
@@ -129,13 +128,12 @@ const technicianSchema = new mongoose.Schema({
       },
     },
   },
-  services:[
-
+  services: [
     {
-      type:String,
-      enum:['laptops','tablets','desktops','screen']
+      type: String,
+      enum: ["laptops", "tablets", "desktops", "screen"],
     },
-  ]
+  ],
 });
 
 const TechnicianModel = mongoose.model("Technician", technicianSchema);
