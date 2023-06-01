@@ -37,7 +37,7 @@ export const createTechnician = async (req, res) => {
     const technician = await TechnicianModel.create(technicianData);
     res.status(201).json(technician);
   } catch (error) {
-    res.status(500).json({ error: "Failed to create technician" });
+    res.status(500).json({ error: "Failed to create technician" ,message:error.message});
   }
 };
 export const aproveTechnician = async (req, res) => {
