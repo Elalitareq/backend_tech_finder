@@ -76,7 +76,7 @@ export async function getAllTechnicians(req, res) {
     const limit = parseInt(req.query.limit) || 12; // Number of technicians per page
     var filter = {};
     if (req.query.service) {
-      filter.service = req.query.service;
+      filter.services = req.query.service;
     }
 
     // Calculate the starting index of technicians for the current page
