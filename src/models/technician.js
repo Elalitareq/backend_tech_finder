@@ -16,6 +16,9 @@ const technicianSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  tel:{
+    type:String,
+  },
   location: {
     lat: {
       type: Number,
