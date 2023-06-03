@@ -22,6 +22,6 @@ productRouter.put(
 
 // Get all products with pagination and search filtration
 productRouter.get("/", getProducts);
-productRouter.get("/:id", getTechnicianProducts);
+productRouter.get("/technician",verifyToken,allowAccess(["technician"]), getTechnicianProducts);
 
 export default productRouter;

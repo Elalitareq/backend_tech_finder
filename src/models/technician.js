@@ -13,6 +13,12 @@ const technicianSchema = new mongoose.Schema({
     type: String,
     required: "Address is required",
   },
+  userId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+    unique:true,
+  },
   image: {
     type: String,
   },

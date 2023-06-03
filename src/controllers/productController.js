@@ -34,7 +34,7 @@ const updateProduct = async (req, res) => {
 const getTechnicianProducts = async (req, res) => {
   const { page = 1, limit = 10, category, keyword } = req.query;
   const query = {};
-  query.technician = req.params.id
+  query.technician = req.user.id
   
   // Apply search filtration
   if (category) {
