@@ -165,10 +165,12 @@ export const getTechnicianById = async (req, res) => {
 // Controller to update a specific technician by ID
 export const updateTechnician = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id:_id } = req.params;
+    const userId= req.user._id
+
     const technicianData = req.body;
-    const technician = await TechnicianModel.findByIdAndUpdate(
-      id,
+    const technician = await TechnicianModel.findOneAndUpdate(
+      {_id,userId},
       technicianData,
       { new: true }
     );

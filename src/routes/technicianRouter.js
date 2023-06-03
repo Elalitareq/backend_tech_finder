@@ -12,7 +12,7 @@ technicianRouter.get('/all' , getAllTechnicians )
 technicianRouter.get('/self' , verifyToken,allowAccess(["technician"]),getSelfTechnician )
 technicianRouter.get('/:id' , getTechnicianById )
 technicianRouter.patch('/aprove/:id' , aproveTechnician )
-technicianRouter.patch('/:id' , updateTechnician )
+technicianRouter.patch('/:id' ,verifyToken,allowAccess(["technician","admin"]), updateTechnician )
 
 
 
