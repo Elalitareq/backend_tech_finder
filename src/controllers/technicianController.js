@@ -37,7 +37,9 @@ export const createTechnician = async (req, res) => {
     const technician = await TechnicianModel.create(technicianData);
     res.status(201).json(technician);
   } catch (error) {
-    res.status(500).json({ error: "Failed to create technician" ,message:error.message});
+    res
+      .status(500)
+      .json({ error: "Failed to create technician", message: error.message });
   }
 };
 export const aproveTechnician = async (req, res) => {
@@ -58,14 +60,12 @@ export const aproveTechnician = async (req, res) => {
       .status(200)
       .send({ succes: true, message: "Technician Aproved", technician });
   } catch (e) {
-    res
-      .status(500)
-      .send({
-        success: false,
-        message: "Internal Server Error",
-        error: error,
-        errorMessage: error.message,
-      });
+    res.status(500).send({
+      success: false,
+      message: "Internal Server Error",
+      error: error,
+      errorMessage: error.message,
+    });
   }
 };
 // Controller to get all technicians
@@ -181,7 +181,18 @@ export const updateTechnician = async (req, res) => {
     res.status(500).json({ error: "Failed to update technician" });
   }
 };
-
+export const getSelfTechnician = async(req, res) => {
+  try {
+    const id=req.user._id
+    const technician = await TechnicianModel.findOne({userId:id})
+    if(technician){
+      res.status(404).json({ success:false,error: "Technician not found" });
+    }
+    res.status(200).send({succes:true,technician})
+  } catch (e) {
+    res.status(500).json({ success:false,error: "something went wrong" });
+  }
+};
 // Controller to delete a specific technician by ID
 export const deleteTechnician = async (req, res) => {
   try {

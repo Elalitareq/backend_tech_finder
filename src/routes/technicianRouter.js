@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { aproveTechnician, createTechnician, getAllTechnicians, getTechnicianById, updateTechnician } from "../controllers/technicianController.js";
+import { aproveTechnician, createTechnician, getAllTechnicians, getSelfTechnician, getTechnicianById, updateTechnician } from "../controllers/technicianController.js";
+import { allowAccess, verifyToken } from "../middlewares/authentication.js";
 
 const technicianRouter= Router()
 
@@ -8,6 +9,7 @@ technicianRouter.post('/' ,(req,res,next)=>{
     next()
 }, createTechnician )
 technicianRouter.get('/all' , getAllTechnicians )
+technicianRouter.get('/self' , verifyToken,allowAccess(["technician"]),getSelfTechnician )
 technicianRouter.get('/:id' , getTechnicianById )
 technicianRouter.patch('/aprove/:id' , aproveTechnician )
 technicianRouter.patch('/:id' , updateTechnician )
