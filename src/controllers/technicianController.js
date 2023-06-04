@@ -186,7 +186,6 @@ export const updateTechnician = async (req, res) => {
 export const getSelfTechnician = async(req, res) => {
   try {
     const id=req.user._id
-    console.log(id)
         const technician = await TechnicianModel.findOne({userId:id})
     if(!technician){
       return res.status(404).json({ success:false,error: "Technician not found" });
