@@ -65,7 +65,8 @@ const getAllTickets = async (req, res) => {
 // Get tickets by technician ID
 const getTicketsByTechnicianId = async (req, res) => {
   try {
-    const id=req.technician._id
+      const id=req.technician._id
+      console.log(id)
     const tickets = await Ticket.find({ technician: id });
     res.status(200).json({ success: true, tickets });
   } catch (error) {
