@@ -68,8 +68,11 @@ const getTicketsByTechnicianId = async (req, res) => {
       const id=req.technician._id
       const {status}=req.query
       const query={technician:id}
-      if(status){
-        query.status=status
+      if(status==="resolved"){
+        query.status="resolved"
+      }else{
+        query.status={$ne:"resolved"}
+
       }
     const tickets = await Ticket.find(query);
     res.status(200).json({ success: true, tickets });
