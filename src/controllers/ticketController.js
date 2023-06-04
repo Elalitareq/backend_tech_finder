@@ -69,19 +69,77 @@ const getTicketsByTechnicianId = async (req, res) => {
     const { status } = req.query;
     const query = { technician: id };
 
-    if (status === "resolved") {
-      query.status = "resolved";
+    if (status ) {
+      query.status = status;
     } else {
       query.status = { $in: ["processing", "open"] };
     }
 
-    console.log(query);
-
+    console.log(query)
     const tickets = await Ticket.find(query);
+    console.log(tickets)
     res.status(200).json({ success: true, tickets });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+export const getTechnicianDashboardData = async (req, res) => {
+  try {
+    const technicianId = req.technician._id;
+
+    const dashboardData = await Ticket.aggregate([
+      // Match tickets for the technician
+      { $match: { technician: technicianId } },
+
+      // Group by status and count tickets in each group
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 }
+        }
+      },
+
+      // Project the necessary fields
+      {
+        $project: {
+          _id: 0,
+          status: "$_id",
+          count: 1
+        }
+      }
+    ]);
+
+    let resolvedCount = 0;
+    let openCount = 0;
+    let processingCount = 0;
+
+    dashboardData.forEach(({ status, count }) => {
+      if (status === "resolved") {
+        resolvedCount = count;
+      } else if (status === "open") {
+        openCount = count;
+      } else if (status === "processing") {
+        processingCount = count;
+      }
+    });
+
+    const recentlyPostedTickets = await Ticket.find({
+      technician: technicianId
+    })
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res.status(200).json({
+      success: true,
+      resolvedCount,
+      openCount,
+      processingCount,
+      recentlyPostedTickets
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 
 export { addTicket, deleteTicket, updateTicket, getTicketById, getAllTickets, getTicketsByTechnicianId };
