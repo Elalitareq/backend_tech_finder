@@ -7,8 +7,11 @@ import {
   getAllTickets,
   getTicketsByTechnicianId,
 } from '../controllers/ticketController.js';
+import { allowAccess, getId, verifyToken } from '../middlewares/authentication.js';
 
 const router = express.Router();
+// Get tickets by technician ID
+router.get('/technician/tickets', verifyToken,allowAccess(['technician']),getId,getTicketsByTechnicianId);
 
 // Add a new ticket
 router.post('/', addTicket);
@@ -25,7 +28,5 @@ router.get('/:id', getTicketById);
 // Get all tickets
 router.get('/', getAllTickets);
 
-// Get tickets by technician ID
-router.get('/technicians/:technicianId/tickets', getTicketsByTechnicianId);
 
 export default router;

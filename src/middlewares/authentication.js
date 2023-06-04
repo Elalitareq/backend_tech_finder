@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import { UserModel } from "../models/user.js"
+import TechnicianModel from "../models/technician.js";
 
 export const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
@@ -39,4 +40,10 @@ export const allowAccess=(arr)=>{
         }
     }
 
+}
+export const getId = (req, res,next) =>{
+TechnicianModel.findOne({userId:req.user._id}).then(resp=>{
+  req.technician=resp
+  next()
+})
 }
