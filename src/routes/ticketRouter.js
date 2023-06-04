@@ -20,7 +20,7 @@ router.post('/', addTicket);
 router.delete('/:id', deleteTicket);
 
 // Update a ticket by ID
-router.put('/:id', updateTicket);
+router.put('/:id', verifyToken,allowAccess(["technician"]),updateTicket);
 
 // Get a single ticket by ID
 router.get('/:id', getTicketById);
