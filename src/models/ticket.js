@@ -41,8 +41,8 @@ const TicketSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['Open', 'In Progress', 'Resolved'],
-    default: 'Open',
+    enum: ['open', 'processing', 'resolved'],
+    default: 'open',
   },
   created_at: {
     type: Date,
