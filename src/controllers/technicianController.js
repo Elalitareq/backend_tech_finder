@@ -32,9 +32,10 @@ function toRadians(degrees) {
 // Controller to create a new technician
 export const createTechnician = async (req, res) => {
   try {
+    const userId=req.user._id;
     const technicianData = req.body;
     technicianData.aproved = false;
-    const technician = await TechnicianModel.create(technicianData);
+    const technician = await TechnicianModel.create({...technicianData,userId});
     res.status(201).json(technician);
   } catch (error) {
     res

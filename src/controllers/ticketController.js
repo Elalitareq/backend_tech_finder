@@ -75,9 +75,7 @@ const getTicketsByTechnicianId = async (req, res) => {
       query.status = { $in: ["processing", "open"] };
     }
 
-    console.log(query)
     const tickets = await Ticket.find(query);
-    console.log(tickets)
     res.status(200).json({ success: true, tickets });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
