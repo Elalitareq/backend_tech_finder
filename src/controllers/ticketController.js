@@ -65,7 +65,10 @@ const getAllTickets = async (req, res) => {
 // Get tickets by technician ID
 const getTicketsByTechnicianId = async (req, res) => {
   try {
-    const id = req.technician._id;
+    const id = req.technician?._id||null;
+    if (!id) {
+      return res.status(404).send({success:false,message:"Technician not found"})
+    }
     const { status } = req.query;
     const query = { technician: id };
 
