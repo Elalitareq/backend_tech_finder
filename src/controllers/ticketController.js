@@ -81,12 +81,15 @@ const getTicketsByTechnicianId = async (req, res) => {
     const tickets = await Ticket.find(query);
     res.status(200).json({ success: true, tickets });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: error.message,message:"gg" });
   }
 };
 export const getTechnicianDashboardData = async (req, res) => {
   try {
-    const technicianId = req.technician._id;
+    const technicianId = req.technician?._id||null;
+    if(!technicianId){
+      return res.status(404).send({success:false,message:"Technician not found"})
+    }
 
     const dashboardData = await Ticket.aggregate([
       // Match tickets for the technician
@@ -138,7 +141,7 @@ export const getTechnicianDashboardData = async (req, res) => {
       recentlyPostedTickets
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: error.message ,message:"gg"});
   }
 };
 
