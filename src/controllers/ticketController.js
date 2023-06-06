@@ -3,12 +3,24 @@ import Ticket from '../models/ticket.js';
 // Add a new ticket
 const addTicket = async (req, res) => {
   try {
+    console.log(req.body)
     const ticket = await Ticket.create(req.body);
     res.status(201).json({ success: true, ticket });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+export const getUserTickets = async (req, res) => {
+  try {
+      const tickets = await Ticket.find({ userId: req.user._id });
+      if(!tickets){
+        res.status(404).json({success: false, message: 'No tickets found'});
+      }
+      res.status(200).json({ success: true, tickets });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+}
 
 // Delete a ticket by ID
 const deleteTicket = async (req, res) => {

@@ -6,6 +6,7 @@ import {
   getTicketById,
   getAllTickets,
   getTicketsByTechnicianId,
+  getUserTickets,
 } from '../controllers/ticketController.js';
 import { allowAccess, getId, verifyToken } from '../middlewares/authentication.js';
 
@@ -13,6 +14,8 @@ const router = express.Router();
 // Get tickets by technician ID
 router.get('/technician/tickets', verifyToken,allowAccess(['technician']),getId,getTicketsByTechnicianId);
 
+
+router.get("/usertickets", verifyToken,getUserTickets );
 // Add a new ticket
 router.post('/', addTicket);
 
