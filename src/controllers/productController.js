@@ -4,14 +4,14 @@ import Product from '../models/product.js';
 const addProduct = async (req, res) => {
   try {
     var testProduct = req.body
-    testProduct.technician=req.user._id
+    testProduct.technician=req.technician?._id
 
 
     const product = new Product(testProduct);
     await product.save();
     res.status(201).json(product);
   } catch (error) {
-    res.status(400).json({ error: 'Failed to add product' });
+    res.status(400).json({ error: 'Failed to add product' ,message: error.message });
   }
 };
 
@@ -26,7 +26,7 @@ const updateProduct = async (req, res) => {
     }
     res.json(product);
   } catch (error) {
-    res.status(400).json({ error: 'Failed to update product' });
+    res.status(400).json({ error: 'Failed to update product' ,message:error.message});
   }
 };
 

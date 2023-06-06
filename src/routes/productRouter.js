@@ -5,12 +5,12 @@ import {
   getProducts,
   getTechnicianProducts,
 } from "../controllers/productController.js";
-import { allowAccess, verifyToken } from "../middlewares/authentication.js";
+import { allowAccess, getId, verifyToken } from "../middlewares/authentication.js";
 
 const productRouter = express.Router();
 
 // Add a new product
-productRouter.post("/", verifyToken, allowAccess(["technician"]), addProduct);
+productRouter.post("/", verifyToken, allowAccess(["technician"]),getId, addProduct);
 
 // Update an existing product
 productRouter.put(
