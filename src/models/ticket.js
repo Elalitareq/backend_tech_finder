@@ -52,6 +52,10 @@ const TicketSchema = new Schema({
     type: Date,
     default: null,
   },
+  userId:{
+    type:Schema.Types.ObjectId,
+    ref:'User',
+  }
 });
 
 const Ticket = mongoose.model('Ticket', TicketSchema);
